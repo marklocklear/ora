@@ -1,0 +1,23 @@
+<%= javascript_include_tag 'jquery' %>
+<%= form_tag :action => 'create' %>
+<%= 'To find out if you have the technical and student skills necessary to succeed with online learning, take the Online Learning Readiness Assessment below. Upon submission, you will be provided with feedback based on your results. The following eighteen questions will help determine if you are ready for online learning.' %><p/>
+<% @response.each_with_index do |response, index| %>
+  <%= fields_for "response[#{index}]", response do |f| %>
+   <b> <%= index + 1 %><%= '. ' + @question_answers[index][0] %></b><p/><!-- Displays the question-->
+    <%= f.hidden_field :question_and_answers %>
+    <% if @question_answers[index].to_s.include? 'likert' then %><!-- If it is likert, then we display the likert scale-->
+      <%= f.radio_button :answer, 5 %> Strongly Agree<br/>
+      <%= f.radio_button :answer, 4 %> Tend To Agree<br/>
+      <%= f.radio_button :answer, 3 %> Neither Agree Nor Disagree<br/>
+      <%= f.radio_button :answer, 2 %> Tend To Disagree<br/>
+      <%= f.radio_button :answer, 1 %> Strongly Disagree <br/>
+    <% else %>
+      <% @question_answers[index][1].each do |answer| %>
+        <%= answer %><!-- Displays answer -->
+        <%= f.radio_button :answer, answer %><br/>
+      <% end %>
+    <% end %>
+    <br/>
+  <% end %>
+<% end %>
+<%= submit_tag 'Submit', :onclick => 'return validate(this)' %><br/>
