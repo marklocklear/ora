@@ -90,8 +90,9 @@
 
 <%= form_tag :action => 'mail_results' %>
   If you would like to email your results please enter your name and email address here:<br/>
-  Name: <%= text_field_tag :name %><br/>
-  Email: <%= text_field_tag :email %><br/>
+  Your Name: <%= text_field_tag :name %><br/>
+  Your Email: <%= text_field_tag :email1 %><br/>
+  (Optional)Advisors Email  <%= text_field_tag :email2 %><br/>
   <%= hidden_field_tag :result, @result_for_email %> 
   <%= hidden_field_tag :uuid, @uuid %> 
 <%= submit_tag 'Submit' %><br/>

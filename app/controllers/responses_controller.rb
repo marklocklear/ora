@@ -109,7 +109,7 @@ class ResponsesController < ApplicationController
   end
 
   def mail_results
-    @email = params[:email]
+    @email = [params[:email1], params[:email2]]
     @name = params[:name]
     @result = params[:result]
     @uuid = params[:uuid]
