@@ -6,7 +6,7 @@
   <body>
     <h3>Results for AB-Tech Online Readiness Assessment for <%= @name %></h3>
     <p>
-      <%= @result_for_email  %>,
+      <%= @result_for_email  %>
     </p>
   <% count = 1 %>
   <% @user_results = Response.find_all_by_uuid(@uuid)  %>
