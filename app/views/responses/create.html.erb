@@ -3,7 +3,7 @@
 <% likert = 0 %>
 <% yesno = 0 %>
 
-<!-- here we loop through each question(result) and if 'yes' we add 5 points, we don't bother with no because it is 0 points. for the likert questions we simply add the value that is assigned in the view. Line 9 tells us whether to display line 31 -->
+<!-- here we loop through each question(result) and if 'yes' we add 5 points, we don't bother with no because it is 0 points. for the likert questions we simply add the value that is assigned in the view. Line 9 tells us whether to display line 34 -->
 <% suggestions = false  %>
 <% @results.each do |r| %>
   <% if r[1][:answer] == 'No' then suggestions = true end %><p/>
@@ -22,13 +22,13 @@
 <!-- logic for results  -->
 <% if likert >= 55 and yesno >= 20 and score >= 75 then %>
   <%= 'Based on your results it looks like' %> <b><%= 'you are a good candidate' %></b> <%= 'for Online Courses at A-B Tech.' %><p/>
-  <% @result = 'Based on your results it looks like you are a good candidate for Online Courses at A-B Tech.' %>
+  <% @result_for_email = 'Based on your results it looks like you are a good candidate for Online Courses at A-B Tech.' %>
 <% elsif likert >= 45 and yesno >= 15 and score >= 60 then %>
   <%= 'Based on your results you may wish to meet with an academic advisor' %> <b><%= 'for alternative hybrid or face to face scheduling' %></b> <%= 'that would provide you with greater learning support.' %><p/>
-  <% @result = 'Based on your results you may wish to meet with an academic advisor for alternative hybrid or face to face scheduling that would provide you with greater learning support.' %>
+  <% @result_for_email = 'Based on your results you may wish to meet with an academic advisor for alternative hybrid or face to face scheduling that would provide you with greater learning support.' %>
 <% elsif likert < 45 or yesno < 15 or score < 60 then %>
   <%= 'Based on your results you may wish to meet with an academic advisor for alternative' %> <b>face to face scheduling </b>that would provide you with greater learning support.<p/>
-  <% @result = 'Based on your results you may wish to meet with an academic advisor for alternative face to face scheduling that would provide you with greater learning support.' %>
+  <% @result_for_email = 'Based on your results you may wish to meet with an academic advisor for alternative face to face scheduling that would provide you with greater learning support.' %>
 <% end  %>
 
 <% if suggestions == true %>
@@ -92,7 +92,7 @@
   If you would like to email your results please enter your name and email address here:<br/>
   Name: <%= text_field_tag :name %><br/>
   Email: <%= text_field_tag :email %><br/>
-  <%= hidden_field_tag :result, @result %> 
+  <%= hidden_field_tag :result, @result_for_email %> 
   <%= hidden_field_tag :uuid, @uuid %> 
 <%= submit_tag 'Submit' %><br/>
 

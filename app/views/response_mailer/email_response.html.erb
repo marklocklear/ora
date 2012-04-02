@@ -6,7 +6,7 @@
   <body>
     <h3>Results for AB-Tech Online Readiness Assessment for <%= @name %></h3>
     <p>
-      <%= @result  %>,
+      <%= @result_for_email  %>,
     </p>
   <% count = 1 %>
   <% @user_results = Response.find_all_by_uuid(@uuid)  %>
@@ -14,7 +14,7 @@
     <%= count.to_s + '. ' + result.question_and_answers.gsub(/[^0-9A-Za-z ]/, '').sub('likert','').sub('Yes','').sub('No','') + 
                                                               '. You answered: ' %>
     <% if result.answer[0].to_s == '5' %>
-    <%= 'Stronly Agree' %><br/><br/>
+    <%= 'Strongly Agree' %><br/><br/>
     <% elsif result.answer[0].to_s == '4' %>
     <%= 'Tend To Agree' %><br/><br/>
     <% elsif result.answer[0].to_s == '3' %>
