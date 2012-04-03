@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'jquery' %>
 <h2>Results</h2>
 <!--these variables keep track of the likert and yesno scores-->
 <% likert = 0 %>
@@ -95,7 +96,7 @@
   (Optional)Advisors Email  <%= text_field_tag :email2 %><br/>
   <%= hidden_field_tag :result, @result_for_email %> 
   <%= hidden_field_tag :uuid, @uuid %> 
-<%= submit_tag 'Submit' %><br/>
+<%= submit_tag 'Submit', :onclick => 'return validate_email(this)' %><br/>
 
 <!--
 process_results(@results)

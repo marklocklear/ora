@@ -19,3 +19,9 @@ function validate() {
       return false;
     }
   }
+function validate_email() {
+  if(""==document.getElementById('email1').value) {
+    alert("Please enter at least one email address.");
+    return false;
+  }
+}
