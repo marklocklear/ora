@@ -94,7 +94,7 @@
   Your Name: <%= text_field_tag :name %><br/>
   Your Email: <%= text_field_tag :email1 %><br/>
   (Optional)Advisors Email  <%= text_field_tag :email2 %><br/>
-  <%= hidden_field_tag :result, @result_for_email %> 
+  <%= hidden_field_tag :result_for_email, @result_for_email %> 
   <%= hidden_field_tag :uuid, @uuid %> 
 <%= submit_tag 'Submit', :onclick => 'return validate_email(this)' %><br/>
 

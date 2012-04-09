@@ -111,9 +111,9 @@ class ResponsesController < ApplicationController
   def mail_results
     @email = [params[:email1], params[:email2]]
     @name = params[:name]
-    @result = params[:result]
+    @result_for_email = params[:result_for_email]
     @uuid = params[:uuid]
-    ResponseMailer.email_response(@name, @email, @result, @uuid).deliver
+    ResponseMailer.email_response(@name, @email, @result_for_email, @uuid).deliver
   end
 end
 
