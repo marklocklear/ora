@@ -112,8 +112,9 @@ class ResponsesController < ApplicationController
     @email = [params[:email1], params[:email2]]
     @name = params[:name]
     @result_for_email = params[:result_for_email]
+    @suggestion_for_email = params[:suggestion_for_email]
     @uuid = params[:uuid]
-    ResponseMailer.email_response(@name, @email, @result_for_email, @uuid).deliver
+    ResponseMailer.email_response(@name, @email, @suggestion_for_email, @result_for_email, @uuid).deliver
   end
 end
 

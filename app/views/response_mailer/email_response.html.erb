@@ -8,6 +8,13 @@
     <p>
       <%= @result_for_email  %>
     </p>
+    <p>
+      <% @suggestion_for_email.split("$").each do |suggestion|  %>
+          <%= suggestion %>
+          <br/>
+          <br/>
+      <% end %>
+    </p>
   <% count = 1 %>
   <% @user_results = Response.find_all_by_uuid(@uuid)  %>
   <% @user_results.each do |result| %>
