@@ -1,0 +1,127 @@
+<%= javascript_include_tag 'jquery' %>
+<h2>Results</h2>
+<!--these variables keep track of the likert and yesno scores-->
+<% likert = 0 %>
+<% yesno = 0 %>
+
+<!-- here we loop through each question(result) and if 'yes' we add 5 points, we don't bother with no because it is 0 points. for the likert questions we simply add the value that is assigned in the view. Line 9 tells us whether to display line 34 -->
+<% suggestions = false  %>
+<% @results.each do |r| %>
+  <% if r[1][:answer] == 'No' then suggestions = true end %><p/>
+  <% if r[1][:answer] == 'Yes' then yesno += 5 %><p/>
+    <% else likert += r[1][:answer].to_i  %>
+  <% end %>
+<% end %>
+
+<!-- get the total score by adding likert and yesno  -->
+<% score = likert + yesno %>
+
+<%#= 'Your likert is ' + likert.to_s %><p/>
+<%#= 'Your yesno is ' + yesno.to_s %><p/>
+<%#= 'Your total score is ' + score.to_s %><p/>
+
+<!-- logic for results  -->
+<% if likert >= 55 and yesno >= 20 and score >= 75 then %>
+  <%= 'Based on your results it looks like' %> <b><%= 'you are a good candidate' %></b> <%= 'for Online Courses at A-B Tech.' %><p/>
+  <% @result_for_email = 'Based on your results it looks like you are a good candidate for Online Courses at A-B Tech.' %>
+<% elsif likert >= 45 and yesno >= 15 and score >= 60 then %>
+  <%= 'Based on your results you may wish to meet with an academic advisor' %> <b><%= 'for alternative hybrid or face to face scheduling' %></b> <%= 'that would provide you with greater learning support.' %><p/>
+  <% @result_for_email = 'Based on your results you may wish to meet with an academic advisor for alternative hybrid or face to face scheduling that would provide you with greater learning support.' %>
+<% elsif likert < 45 or yesno < 15 or score < 60 then %>
+  <%= 'Based on your results you may wish to meet with an academic advisor for alternative' %> <b>face to face scheduling </b>that would provide you with greater learning support.<p/>
+  <% @result_for_email = 'Based on your results you may wish to meet with an academic advisor for alternative face to face scheduling that would provide you with greater learning support.' %>
+<% end  %>
+<!--Here we create a new array to gather suggestions to be passed to email form. Then for each suggestion we 'push' the suggestion to this array with the '$' char at the end of each suggestion. Later in the email form we split the suggestions based on the '$' and loop through this array to print the suggestion out in the email -->
+<% @suggestion_for_email = Array.new %> 
+<% if suggestions == true %>
+<%= 'Based on your specific answers here are some suggestions for improving your readiness for online classes.' %><p/>
+<% end  %>
+<ul>
+<% if @results["3"]['answer'].to_i < 3 %>
+  <li>
+  <%= 'Browsing the Internet is a key skill required for success in online courses.  Please visit this link for a review of this important tool:' %> <a href="http://www.gcflearnfree.org/internet101/4" target="_blank">Internet 101: Browser Basics</a><p/>
+  </li>
+  <% @suggestion_for_email.push 'Browsing the Internet is a key skill required for success in online courses.  Please visit this link for a review of this important tool: http://www.gcflearnfree.org/internet101/4$' %>
+<% end %>
+
+<% if @results["4"]['answer'].to_i < 3 %>
+  <li>
+  <%= 'For most students taking an online course, having a computer in an easily accessible area (like home) is important for success.  However, if you do not have a computer in your home, we have computers available for use on campus. Not having a computer at home is never a good excuse for not completing coursework on time. Here are A-B Tech ' %> <a href="http://www1.abtech.edu/content/directory/A-B-Tech-Hours-of-Operations" target="_blank">Hours of Operation</a><p/>
+  </li>
+  <% @suggestion_for_email.push 'For most students taking an online course, having a computer in an easily accessible area (like home) is important for success.  However, if you do not have a computer in your home, we have computers available for use on campus. Not having a computer at home is never a good excuse for not completing coursework on time. Here is a link to AB-Tech hours of operation: http://www1.abtech.edu/content/directory/A-B-Tech-Hours-of-Operations$' %>
+<% end %>
+<% if @results["5"]['answer'].to_i < 3 %>
+  <li>
+  <%= 'Email and discussion forums are a great way to communicate electronically.  In an online course, this is the primary method you will use to contact other participants.  You may need to consider how you will feel using only these methods to communicate.' %><p/>
+  </li>
+  <% @suggestion_for_email.push 'Email and discussion forums are a great way to communicate electronically.  In an online course, this is the primary method you will use to contact other participants.  You may need to consider how you will feel using only these methods to communicate.$'%>
+<% end %>
+<% if @results["9"]['answer'].to_i < 3 %>
+  <li>
+  <%= 'We want to ensure that online learning is equally as successful as classroom instruction in helping you to achieve your goals.  However, online learning does require the same (or even more) dedication and commitment as taking traditional courses. It is a myth that online courses are easier than face-to-face ones!' %> <a href="http://scos.mccvlc.org/FIPSE/PLAY/elfusers/orientation/What_Is_Online_Like/ONLINE_LEARNING_MYTHS.xee" target="_blank">Read more about online myths.</a><p/>
+  </li>
+  <% @suggestion_for_email.push 'We want to ensure that online learning is equally as successful as classroom instruction in helping you to achieve your goals.  However, online learning does require the same (or even more) dedication and commitment as taking traditional courses. It is a myth that online courses are easier than face-to-face ones!$'%>
+<% end %>
+<% if @results["11"]['answer'].to_i < 3 %>
+  <li>
+  <%= 'Understanding what you read is essential for learning.  It is even more true in an online environment. You should strongly consider completing any required Reading classes (RED-080 or RED-090) prior to enrolling in online courses.' %><p/>
+  </li>
+  <% @suggestion_for_email.push 'Understanding what you read is essential for learning.  It is even more true in an online environment. You should strongly consider completing any required Reading classes (RED-080 or RED-090) prior to enrolling in online courses.$'%>
+<% end %>
+<% if @results["13"]['answer'] == 'No' %>
+  <li>
+  <%= 'Communicating using the written word is essential for learning.  It is even more true in an online environment, where text is used frequently. You should strongly consider completing any required developmental writing classes (ENG-080 or ENG-090) prior to enrolling in online courses.' %><p/>
+  </li>
+  <% @suggestion_for_email.push 'Communicating using the written word is essential for learning.  It is even more true in an online environment, where text is used frequently. You should strongly consider completing any required developmental writing classes (ENG-080 or ENG-090) prior to enrolling in online courses.$'%>
+<% end %>
+<% if @results["14"]['answer'] == 'No' %>
+  <li>  
+  <%= 'Successfully using email is essential for all students at A-B Tech.  You will be given an A-B Tech email address when you register.' %> <a href="http://www.gcflearnfree.org/gmail/1" target="_blank">Learn more about Gmail</a><p/>
+  </li>
+  <% @suggestion_for_email.push 'Successfully using email is essential for all students at A-B Tech.  You will be given an A-B Tech email address when you register. Learn more about Gmail at: http://www.gcflearnfree.org/gmail/1$'%>
+<% end %>
+<% if @results["15"]['answer'] == 'No' %>
+  <li>
+  <%= 'Creating written assignments is expected in many classes.  You should feel comfortable using word processing software.  It is a good idea to take CIS-110 in your first semester if you would like to improve your word processing skills.' %><p/>
+  </li>
+  <% @suggestion_for_email.push 'Creating written assignments is expected in many classes.  You should feel comfortable using word processing software.  It is a good idea to take CIS-110 in your first semester if you would like to improve your word processing skills.$'%>
+<% end %>
+<% if @results["16"]['answer'] == 'No' %>
+  <li>
+  <%= 'For most classes, you will need a word processing program.' %> <a href="http://www.microsoftstore.com/store/msstore/pd/productID.229301900" target="_blank">Microsoft Office </a> is available from the bookstore. Alternatively, Open Office is a free Office suite that can be downloaded <a href="http://www.openoffice.org/" target="_blank">here.</a> You may also use <a href="http://docs.google.com/support/bin/answer.py?answer=49008" target="_blank">Google Docs</a> which is freely available through your A-B Tech Gmail account.<p/>
+  </li>
+  <% @suggestion_for_email.push 'For most classes, you will need a word processing program. Microsoft Office is available from the bookstore. Alternatively, Open Office is a free Office suite. You may also use Google Docs which is freely available through your A-B Tech Gmail account.$'%>
+<% end %>
+<% if @results["17"]['answer'] == 'No' %>
+  <li>
+  <%= 'Locating files on your computer and uploading them into the Moodle is an essential skill for all courses.  If you are uncomfortable with these steps, strongly consider taking ' %> <a href="http://www1.abtech.edu/a-b-tech-catalog/course-descriptions/cts/essential-computer-usage" target="_blank"> CTS-060</a> prior to enrolling in your first online course.<p/>
+  </li>
+  <% @suggestion_for_email.push 'Locating files on your computer and uploading them into the Moodle is an essential skill for all courses.  If you are uncomfortable with these steps, strongly consider taking CTS-060 prior to enrolling in your first online course.$'%>
+<% end %>
+</ul>
+<%= form_tag :action => 'mail_results' %>
+  If you would like to email your results please enter your name and email address here:<br/>
+  Your Name: <%= text_field_tag :name %><br/>
+  Your Email: <%= text_field_tag :email1 %><br/>
+  (Optional)Advisors Email  <%= text_field_tag :email2 %><br/>
+  <%= hidden_field_tag :result_for_email, @result_for_email %> 
+  <%= hidden_field_tag :suggestion_for_email, @suggestion_for_email %> 
+  <%= hidden_field_tag :uuid, @uuid %> 
+<%= submit_tag 'Submit', :onclick => 'return validate_email(this)' %><br/>
+
+<!--
+process_results(@results)
+@results["0"]['question_and_answers']
+@results["1"]['question_and_answers']
+
+Variable @results is a collection of the users response to each question followed by all questions and available answers.
+
+@results =
+
+{"0"=>{"answer"=>"Jack", "question_and_answers"=>"[\"What is your name?\", [\"Jim\", \"Jack\", \"Jon\", \"Wintas\"]]"}, "1"=>{"answer"=>"Blue", "question_and_answers"=>"[\"What is your favorite color?\", [\"Blue\", \"Red\", \"Purple\", \"Gold\"]]"}, "2"=>{"answer"=>"24", "question_and_answers"=>"[\"What is the average air speed of an unlaiden swallow?\", [\"99\", \"24\", \"63\", \"57\"]]"}}
+
+First question = 
+Second question =
+Second available answer of third question =
+User response to second question =  @results["1"]['answer']
+-->

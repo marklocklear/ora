@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h3>Results for AB-Tech Online Readiness Assessment for <%= @name %></h3>
+    <p>
+      <%= @result_for_email  %>
+    </p>
+    <p>
+      <% @suggestion_for_email.split("$").each do |suggestion|  %>
+          <%= suggestion %>
+          <br/>
+          <br/>
+      <% end %>
+    </p>
+  <% count = 1 %>
+  <% @user_results = Response.find_all_by_uuid(@uuid)  %>
+  <% @user_results.each do |result| %>
+    <%= count.to_s + '. ' + result.question_and_answers.gsub(/[^0-9A-Za-z ]/, '').sub('likert','').sub('Yes','').sub('No','') + 
+                                                              '. You answered: ' %>
+    <% if result.answer[0].to_s == '5' %>
+    <%= 'Strongly Agree' %><br/><br/>
+    <% elsif result.answer[0].to_s == '4' %>
+    <%= 'Tend To Agree' %><br/><br/>
+    <% elsif result.answer[0].to_s == '3' %>
+    <%= 'Neither Agree Nor Disagree' %><br/><br/>
+    <% elsif result.answer[0].to_s == '2' %>
+    <%= 'Tend To Disagree' %><br/><br/>
+    <% elsif result.answer[0].to_s == '1' %>
+    <%= 'Strongly Disagree' %><br/><br/>
+    <% elsif result.answer[0].to_s == 'Y' %>
+    <%= 'Yes' %><br/><br/>
+    <% else %>
+    <%= 'No' %><br/><br/>
+  <% end  %>
+    <% count += 1 %>
+  <% end  %>
+    <p>
+Be sure to contact your faculty advisor at any time during the term when questions or problems arise, but especially during published advisement periods. Use your WebAdvisor account to send an e-mail directly to your faculty advisor. You may also call Student Services at 828-398-7520 or visit the Express Lane in the Bailey Building for assistance. New distance students may e-mail the distance advisor at distanceadvising@abtech.edu
+    </p>
+  </body>
+</html>
