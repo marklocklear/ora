@@ -1,6 +1,6 @@
 <%= javascript_include_tag 'jquery' %>
 <%= form_tag :action => 'create' %>
-<%= 'to find out if you have the technical and student skills necessary to succeed with online learning, take the Online Learning Readiness Assessment below. Upon submission, you will be provided with feedback based on your results. The following eighteen questions will help determine if you are ready for online learning.' %><p/>
+<%= 'To find out if you have the technical and student skills necessary to succeed with online learning, take the Online Learning Readiness Assessment below. Upon submission, you will be provided with feedback based on your results. The following eighteen questions will help determine if you are ready for online learning.' %><p/>
 <% @response.each_with_index do |response, index| %>
   <%= fields_for "response[#{index}]", response do |f| %>
    <b> <%= index + 1 %><%= '. ' + @question_answers[index][0] %></b><p/><!-- Displays the question-->
