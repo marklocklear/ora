@@ -14,7 +14,6 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'sqlite3'
 gem 'uuidtools'
 
 # Use unicorn as the web server
