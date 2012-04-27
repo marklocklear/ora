@@ -1,9 +1,9 @@
 require "bundler/capistrano"
 
-server "152.27.4.59", :web, :app, :db, primary: true
+server "www.redbanksroad.com", :web, :app, :db, primary: true #aws server
 
 set :application, "ora"
-set :user, "ist-rails"
+set :user, "ubuntu"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
