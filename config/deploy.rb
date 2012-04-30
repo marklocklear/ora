@@ -1,6 +1,6 @@
 require "bundler/capistrano"
 
-server "www.redbanksroad.com", :web, :app, :db, primary: true #aws server
+server "www.hezekiahroad.com", :web, :app, :db, primary: true #aws server
 
 set :application, "ora"
 set :user, "ubuntu"
