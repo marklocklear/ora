@@ -52,7 +52,7 @@ Opa2::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
-
+=begin
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
     :address => 'smtp.gmail.com',
@@ -60,6 +60,13 @@ Opa2::Application.configure do
     :authentication => :plain,
     :domain => 'ezslp.com',
     :user_name => 'info@ezslp.com',
-    :password => 'homer9721'
+    :password => ''
+  }
+=end
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address => 'barracuda.abtech.edu',
+    :port => 25,
+    :authentication => :plain,
   }
 end
