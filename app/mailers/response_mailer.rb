@@ -1,5 +1,5 @@
 class ResponseMailer < ActionMailer::Base
-  default :from => "from@example.com"
+  default :from => "donotreply@abtech.edu"
 
   def email_response(name, email, suggestion_for_email, result_for_email, uuid)
     @email = email
