@@ -7,6 +7,7 @@ set :user, "ist-rails"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
+set :normalize_asset_timestamps, false
 
 set :scm, "git"
 set :repository, "git@github.com:marklocklear/#{application}.git"
