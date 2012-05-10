@@ -101,9 +101,20 @@
 </ul>
 <%= form_tag :action => 'mail_results' %>
   If you would like to email your results please enter your name and email address here:<br/>
-  Your Name: <%= text_field_tag :name %><br/>
-  Your Email: <%= text_field_tag :email1 %><br/>
-  (Optional)Advisors Email  <%= text_field_tag :email2 %><br/>
+<table>
+<tr>
+  <td>Your Name:</td>
+  <td><%= text_field_tag :name %></td>
+</tr>
+<tr>
+  <td>Your Email:</td>
+  <td><%= text_field_tag :email1 %></td>
+</tr>
+<tr>
+  <td>(Optional)Advisors Email</td>
+  <td><%= text_field_tag :email2 %></td>
+</tr>
+</table>
   <%= hidden_field_tag :result_for_email, @result_for_email %> 
   <%= hidden_field_tag :suggestion_for_email, @suggestion_for_email %> 
   <%= hidden_field_tag :uuid, @uuid %> 
