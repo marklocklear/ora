@@ -34,16 +34,15 @@ Opa2::Application.configure do
     :address => 'smtp.gmail.com',
     :port => 587,
     :authentication => :plain,
-    :domain => 'ezslp.com',
-    :user_name => 'info@ezslp.com',
+    :domain => 'example.com',
+    :user_name => '',
     :password => ''
   }
-=end
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
     :address => 'barracuda.abtech.edu',
     :port => 25,
     :authentication => :plain,
   }
+=end
 end
-

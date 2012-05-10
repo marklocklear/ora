@@ -1,1 +1,10 @@
-An email containing your results has been mailed to <%= @email %>.
+<%= 'An email containing your results has been mailed to:' %>
+<!-- Doing some silly stuff with count to place the and if there are two emails -->
+<% count = 0 %>
+<% @email.each do |email| %>
+  <% if email != "" and count > 0 %>
+    <%= 'and' %>
+  <% end %>
+  <%= email %>
+  <% count += 1 %>
+<% end %>
